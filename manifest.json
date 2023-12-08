@@ -1,0 +1,21 @@
+{
+  "name": "Page Load Alarm",
+  "version": "0.0.0.1",
+  "manifest_version": 3,
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "notifications",
+    "offscreen"
+  ],
+  "description": "Plays a notification with sound on page load. Works when any tab in a window finishes loading.",
+  "icons": {
+    "128": "icons/loadingalarm128x128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "background": {
+    "service_worker": "service_worker.js"
+  }
+}
