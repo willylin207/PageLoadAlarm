@@ -15,9 +15,11 @@ chrome.action.onClicked.addListener(tab => {
             }
         })
         .then(() => {
-            chrome.action.setTitle({ "title": `Click to ${enabled ? "disable" : "enable"} page load alarms` })
+            chrome.action.setTitle({
+                title: `Click to ${enabled ? "disable" : "enable"} page load alarms`
+            });
         })
-        .then(() => { enabled = !enabled })
+        .then(() => enabled = !enabled)
         .then(() => changingStatus = false);
 });
 
@@ -42,7 +44,7 @@ async function notify(details) {
 
 function createSoundPage() {
     return chrome.runtime.getContexts({
-        contextTypes: ['OFFSCREEN_DOCUMENT'],
+        contextTypes: ["OFFSCREEN_DOCUMENT"],
         documentUrls: [chrome.runtime.getURL(soundpageUrl)]
     })
         .then(matchingContexts => {
