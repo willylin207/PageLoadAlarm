@@ -31,15 +31,15 @@ chrome.webNavigation.onCompleted.addListener(async details => {
     }
 });
 
-async function notify(details) {
-    const title = await chrome.tabs.get(details.tabId)
-        .then(tab => tab.title);
-    chrome.notifications.create(null, {
-        type: "basic",
-        title: "Tab Loaded",
-        message: `${title}`,
-        iconUrl: enabledIcon
-    });
+function notify(details) {
+    return chrome.tabs.get(details.tabId)
+        .then(tab => tab.title)
+        .then(title => chrome.notifications.create(null, {
+            type: "basic",
+            title: "Tab Loaded",
+            message: title,
+            iconUrl: enabledIcon
+        }));
 }
 
 function createSoundPage() {
@@ -57,11 +57,11 @@ function createSoundPage() {
                 }
             });
         })
-        .then(() => creating = chrome.offscreen.createDocument({
+        .then(() => creatingSoundpage = chrome.offscreen.createDocument({
             url: soundpageUrl,
             reasons: ["AUDIO_PLAYBACK"],
             justification: "Plays a sound to alert the completion of a tab load."
         }))
-        .then(() => { creating = null; })
+        .then(() => creatingSoundpage = null)
         .catch(() => creatingSoundpage); // so creating soundpage can be waited for
 }
