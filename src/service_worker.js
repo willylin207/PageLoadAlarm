@@ -1,8 +1,24 @@
-self.addEventListener("activate", async () => {
+chrome.runtime.onInstalled.addListener(async details => {
+    let enabled = true;
+
     await createSoundPage();
 
+    const disabledIcon = "../icons/disabled_loadingalarm128x128.png";
+    const enabledIcon = "../icons/loadingalarm128x128.png";
+    chrome.action.onClicked.addListener(tab => {
+        chrome.action.setIcon({
+            "path": {
+                "128": enabled ? disabledIcon : enabledIcon
+            }
+        })
+            .then(() => {
+                chrome.action.setTitle({ "title": `Click to ${enabled ? "disable" : "enable"} page load alarms` })
+            })
+            .then(() => { enabled = !enabled });
+    });
+
     chrome.webNavigation.onCompleted.addListener(async details => {
-        if (details.frameId === 0) {
+        if (enabled && details.frameId === 0) {
             chrome.runtime.sendMessage({ action: "playoffscreen" });
         }
     });
