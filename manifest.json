@@ -13,9 +13,9 @@
     "128": "icons/loadingalarm128x128.png"
   },
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_popup": "/src/popup/popup.html"
   },
   "background": {
-    "service_worker": "service_worker.js"
+    "service_worker": "/src/service_worker.js"
   }
 }
