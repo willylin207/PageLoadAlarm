@@ -25,6 +25,7 @@ chrome.webNavigation.onCompleted.addListener(async details => {
     if (enabled && details.frameId === 0) {
         createSoundPage()
             .then(() => chrome.runtime.sendMessage({ action: "playoffscreen" }));
+        // notify(details);
     }
 });
 
@@ -35,7 +36,7 @@ async function notify(details) {
         type: "basic",
         title: "Tab Loaded",
         message: `${title}`,
-        iconUrl: "icons/loadingalarm128x128.png"
+        iconUrl: enabledIcon
     });
 }
 
@@ -55,10 +56,10 @@ function createSoundPage() {
             });
         })
         .then(() => creating = chrome.offscreen.createDocument({
-            url: "src/offscreen/audioplayer.html",
+            url: soundpageUrl,
             reasons: ["AUDIO_PLAYBACK"],
             justification: "Plays a sound to alert the completion of a tab load."
         }))
         .then(() => { creating = null; })
-        .catch(() => creatingSoundpage);
+        .catch(() => creatingSoundpage); // so creating soundpage can be waited for
 }
