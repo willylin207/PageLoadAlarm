@@ -16,9 +16,10 @@
     "default_icon": {
       "128": "icons/loadingalarm128x128.png"
     },
-    "default_title": "Click to disable page load alarms"
+    "default_title": "Click to disable page load alarms",
+    "default_popup": "src/popup/settings.html"
   },
   "background": {
-    "service_worker": "/src/service_worker.js"
+    "service_worker": "src/service_worker.js"
   }
 }
