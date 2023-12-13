@@ -16,7 +16,7 @@ chrome.action.onClicked.addListener(tab => {
         })
         .then(() => {
             chrome.action.setTitle({
-                title: `Click to ${enabled ? "disable" : "enable"} page load alarms`
+                title: `Click to ${enabled ? "enable" : "disable"} page load alarms`
             });
         })
         .then(() => enabled = !enabled)
