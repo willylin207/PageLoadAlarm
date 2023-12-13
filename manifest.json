@@ -5,7 +5,6 @@
   "permissions": [
     "webNavigation",
     "tabs",
-    "notifications",
     "offscreen"
   ],
   "description": "Plays a notification with sound on page load. Works when any tab in a window finishes loading.",

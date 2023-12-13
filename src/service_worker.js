@@ -27,20 +27,8 @@ chrome.webNavigation.onCompleted.addListener(async details => {
     if (enabled && details.frameId === 0) {
         createSoundPage()
             .then(() => chrome.runtime.sendMessage({ action: "playoffscreen" }));
-        // notify(details);
     }
 });
-
-function notify(details) {
-    return chrome.tabs.get(details.tabId)
-        .then(tab => tab.title)
-        .then(title => chrome.notifications.create(null, {
-            type: "basic",
-            title: "Tab Loaded",
-            message: title,
-            iconUrl: enabledIcon
-        }));
-}
 
 function createSoundPage() {
     return chrome.runtime.getContexts({
