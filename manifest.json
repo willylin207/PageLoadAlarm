@@ -7,7 +7,7 @@
     "webNavigation",
     "offscreen"
   ],
-  "description": "Plays a notification with sound on page load. Works when any tab in a window finishes loading.",
+  "description": "Plays a notification with sound on page load. Works when any tab in a window finishes loading. Click the extension icon to toggle whether sounds should be played or not.",
   "icons": {
     "128": "icons/loadingalarm128x128.png"
   },
