@@ -1,6 +1,7 @@
-const disabledIcon = "../icons/disabled_loadingalarm128x128.png";
-const enabledIcon = "../icons/loadingalarm128x128.png";
-const soundpageUrl = "src/offscreen/audioplayer.html";
+const DISABLED_ICON = "../icons/disabled_loadingalarm128x128.png";
+const ENABLED_ICON = "../icons/loadingalarm128x128.png";
+const SOUNDPAGE = "src/offscreen/audioplayer.html";
+const BADGE_TEXT_ENABLED = "on";
 
 let enabled = true;
 let changingStatus = false;
@@ -11,7 +12,7 @@ chrome.action.onClicked.addListener(tab => {
     changingStatus = true;
     chrome.action.setIcon({
             "path": {
-                "128": enabled ? disabledIcon : enabledIcon
+                "128": enabled ? DISABLED_ICON : ENABLED_ICON
             }
         })
         .then(() => {
@@ -23,7 +24,7 @@ chrome.action.onClicked.addListener(tab => {
         .then(() => changingStatus = false);
 });
 
-chrome.webNavigation.onCompleted.addListener(async details => {
+chrome.webNavigation.onCompleted.addListener(details => {
     if (enabled && details.frameId === 0) {
         createSoundPage()
             .then(() => chrome.runtime.sendMessage({ action: "playoffscreen" }));
@@ -33,7 +34,7 @@ chrome.webNavigation.onCompleted.addListener(async details => {
 function createSoundPage() {
     return chrome.runtime.getContexts({
         contextTypes: ["OFFSCREEN_DOCUMENT"],
-        documentUrls: [chrome.runtime.getURL(soundpageUrl)]
+        documentUrls: [chrome.runtime.getURL(SOUNDPAGE)]
     })
         .then(matchingContexts => {
             return new Promise((resolve, reject) => {
@@ -46,7 +47,7 @@ function createSoundPage() {
             });
         })
         .then(() => creatingSoundpage = chrome.offscreen.createDocument({
-            url: soundpageUrl,
+            url: SOUNDPAGE,
             reasons: ["AUDIO_PLAYBACK"],
             justification: "Plays a sound to alert the completion of a tab load."
         }))
