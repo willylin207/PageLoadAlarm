@@ -1,0 +1,14 @@
+{
+    "typeAcquisition": {
+        "include": [
+            "chrome"
+        ]
+    },
+    "compilerOptions": {
+        "lib": [
+            "WebWorker",
+            "ES2022"
+        ]
+    },
+    "include": ["service_worker.js"]
+}
